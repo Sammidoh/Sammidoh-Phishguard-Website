@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<h2><i class="fas fa-sliders-h"></i> System Settings</h2>
+<div class="card">
+    <div class="card-body">
+        <form id="settingsForm">
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" id="protectionEnabled" checked>
+                <label class="form-check-label">Enable PhishGuard Protection (global)</label>
+            </div>
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" id="strictMode">
+                <label class="form-check-label">Strict Mode (block all suspicious TLDs/shorteners)</label>
+            </div>
+            <div class="mb-3">
+                <label>Warning Sensitivity</label>
+                <select id="sensitivity" class="form-select"><option>medium</option><option>low</option><option>high</option></select>
+            </div>
+            <button type="submit" class="btn btn-primary">Save Settings</button>
+        </form>
+    </div>
+</div>
+<script>
+    document.getElementById('settingsForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const settings = {
+            protection_enabled: document.getElementById('protectionEnabled').checked,
+            strict_mode: document.getElementById('strictMode').checked,
+            warning_sensitivity: document.getElementById('sensitivity').value
+        };
+        await apiFetch('/api/v1/settings', { method: 'PUT', body: JSON.stringify(settings) });
+        alert('Settings saved');
+    });
+    // load existing settings
+    (async () => {
+        const res = await apiFetch('/api/v1/settings');
+        if (res) {
+            document.getElementById('protectionEnabled').checked = res.protection_enabled;
+            document.getElementById('strictMode').checked = res.strict_mode;
+            document.getElementById('sensitivity').value = res.warning_sensitivity;
+        }
+    })();
+</script>
+{% endblock %}

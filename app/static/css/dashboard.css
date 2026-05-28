@@ -1,0 +1,129 @@
+/* ============================================
+   PhishGuard Dashboard Styles
+   Cards, stats, charts, tables for admin panel
+   ============================================ */
+
+/* Stats Cards */
+.stat-card {
+    background: linear-gradient(135deg, #1e2a3a 0%, #0f1a24 100%);
+    border-radius: 15px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+    height: 100%;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--danger);
+}
+
+.stat-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.stat-value {
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin: 0.5rem 0;
+}
+
+.stat-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Dashboard specific cards */
+.dashboard-card {
+    overflow: hidden;
+}
+
+.dashboard-card .card-header {
+    background: linear-gradient(90deg, #2c3e50, #1a2a3a);
+}
+
+/* Chart containers */
+.chart-container {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* URL manager table */
+.url-table td {
+    word-break: break-all;
+    vertical-align: middle;
+}
+
+.category-badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.category-phishing { background-color: #e74c3c; }
+.category-malware { background-color: #c0392b; }
+.category-scam { background-color: #f39c12; color: #1a1a1a; }
+.category-fake_banking { background-color: #e67e22; }
+.category-fake_login { background-color: #d35400; }
+
+/* Filters bar */
+.filters-bar {
+    background: var(--bg-secondary);
+    padding: 1rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: flex-end;
+}
+
+.filter-group {
+    flex: 1;
+    min-width: 150px;
+}
+
+.filter-group label {
+    display: block;
+    margin-bottom: 0.3rem;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* DataTables style overrides */
+.dataTables_wrapper .dataTables_filter input {
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-color);
+    color: white;
+}
+
+/* Export buttons */
+.export-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Responsive tables */
+.table-responsive {
+    overflow-x: auto;
+}
+
+@media (max-width: 768px) {
+    .stat-card {
+        margin-bottom: 1rem;
+    }
+    .filters-bar {
+        flex-direction: column;
+    }
+}

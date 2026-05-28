@@ -1,0 +1,173 @@
+/* ============================================
+   PhishGuard Warning Page Styles
+   Full-screen red danger theme, animations
+   ============================================ */
+
+body.warning-page {
+    margin: 0;
+    padding: 0;
+    background: #1a0000;
+    font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    overflow: hidden;
+}
+
+.warning-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, #2c0000 0%, #0a0000 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.warning-container {
+    max-width: 800px;
+    width: 90%;
+    animation: fadeInWarning 0.5s ease-out;
+}
+
+@keyframes fadeInWarning {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.warning-card {
+    background: rgba(0, 0, 0, 0.95);
+    border: 3px solid #ff0000;
+    border-radius: 24px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 0 60px rgba(255, 0, 0, 0.5), inset 0 0 10px rgba(255, 0, 0, 0.3);
+    backdrop-filter: blur(2px);
+}
+
+.danger-icon {
+    font-size: 5rem;
+    color: #ff0000;
+    animation: pulse 1s infinite;
+    margin-bottom: 1rem;
+}
+
+@keyframes pulse {
+    0% {
+        text-shadow: 0 0 0px red;
+        transform: scale(1);
+    }
+    50% {
+        text-shadow: 0 0 30px red;
+        transform: scale(1.1);
+    }
+    100% {
+        text-shadow: 0 0 0px red;
+        transform: scale(1);
+    }
+}
+
+.warning-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #ff0000;
+    margin-bottom: 1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.warning-message {
+    font-size: 1.2rem;
+    color: #ff9999;
+    margin-bottom: 1.5rem;
+}
+
+.details-box {
+    background: #1a1a1a;
+    border-left: 4px solid #ff0000;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    text-align: left;
+    border-radius: 8px;
+}
+
+.details-box strong {
+    color: #ff6666;
+}
+
+.url-display {
+    word-break: break-all;
+    background: #2a2a2a;
+    padding: 0.5rem;
+    border-radius: 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    border: 1px solid #3a3a3a;
+}
+
+.button-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.btn-danger-warning {
+    background: #ff0000;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(255,0,0,0.3);
+}
+
+.btn-danger-warning:hover {
+    background: #cc0000;
+    transform: scale(1.03);
+    box-shadow: 0 6px 20px rgba(255,0,0,0.5);
+}
+
+.btn-secondary-warning {
+    background: #444;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary-warning:hover {
+    background: #666;
+    transform: scale(1.02);
+}
+
+@media (max-width: 600px) {
+    .warning-card {
+        padding: 1.2rem;
+    }
+    .warning-title {
+        font-size: 1.8rem;
+    }
+    .btn-danger-warning,
+    .btn-secondary-warning {
+        padding: 8px 20px;
+        font-size: 0.9rem;
+    }
+    .danger-icon {
+        font-size: 3rem;
+    }
+}

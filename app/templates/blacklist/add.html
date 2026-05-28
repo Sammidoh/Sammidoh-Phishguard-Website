@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+    <div class="card-header bg-danger text-white">Add New Blacklisted URL</div>
+    <div class="card-body">
+        <form method="post" action="{{ url_for('blacklist.add') }}">
+            <div class="mb-3">
+                <label class="form-label">URL</label>
+                <input type="url" name="url" class="form-control" placeholder="https://example.com" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Threat Category</label>
+                <select name="category" class="form-select">
+                    <option value="phishing">Phishing</option>
+                    <option value="malware">Malware</option>
+                    <option value="scam">Scam</option>
+                    <option value="fake_banking">Fake Banking</option>
+                    <option value="fake_login">Fake Login</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Risk Score (0-100)</label>
+                <input type="number" name="risk_score" class="form-control" value="100" min="0" max="100">
+            </div>
+            <button type="submit" class="btn btn-danger">Add to Blacklist</button>
+            <a href="{{ url_for('blacklist.list_blacklist') }}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block content %}
+<h2><i class="fas fa-chart-line"></i> Advanced Threat Analytics</h2>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">Top 10 Blocked Domains</div>
+            <div class="card-body">
+                <canvas id="topDomainsChart" height="300"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">Threat Categories Over Time</div>
+            <div class="card-body">
+                <canvas id="categoryTrendChart" height="300"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header">Hourly Threat Activity (Last 24h)</div>
+    <div class="card-body">
+        <canvas id="hourlyChart" height="200"></canvas>
+    </div>
+</div>
+<script>
+async function loadAnalytics() {
+    // Fetch stats (includes daily activity)
+    const statsRes = await apiFetch('/logs/stats');
+    const daily = statsRes.daily || [];
+    
+    // Top domains – fetch logs and aggregate domains
+    const logsRes = await apiFetch('/logs/data?page=1&per_page=100');
+    const logs = logsRes.logs || [];
+    const domainCount = {};
+    logs.forEach(log => {
+        let domain = log.url.split('/')[2] || log.url;
+        domainCount[domain] = (domainCount[domain] || 0) + 1;
+    });
+    const topDomains = Object.entries(domainCount).sort((a,b) => b[1]-a[1]).slice(0,10);
+    
+    new Chart(document.getElementById('topDomainsChart'), {
+        type: 'bar',
+        data: {
+            labels: topDomains.map(d => d[0].length > 30 ? d[0].substring(0,27)+'...' : d[0]),
+            datasets: [{ label: 'Blocks', data: topDomains.map(d => d[1]), backgroundColor: '#ff6384' }]
+        },
+        options: { responsive: true, maintainAspectRatio: true }
+    });
+    
+    // Category trend – mock for now; in production fetch from /logs/categories_by_day
+    const categories = ['phishing','malware','scam','fake_banking','fake_login'];
+    const trendData = daily.map(d => ({
+        date: d.date,
+        phishing: Math.floor(Math.random() * 20),
+        malware: Math.floor(Math.random() * 10),
+        scam: Math.floor(Math.random() * 8)
+    }));
+    new Chart(document.getElementById('categoryTrendChart'), {
+        type: 'line',
+        data: {
+            labels: trendData.map(t => t.date),
+            datasets: [
+                { label: 'Phishing', data: trendData.map(t => t.phishing), borderColor: '#ff6384', fill: false },
+                { label: 'Malware', data: trendData.map(t => t.malware), borderColor: '#36a2eb', fill: false },
+                { label: 'Scam', data: trendData.map(t => t.scam), borderColor: '#ffce56', fill: false }
+            ]
+        }
+    });
+    
+    // Hourly (mock)
+    const hours = Array.from({length:24}, (_,i) => i+':00');
+    const hourlyCounts = hours.map(() => Math.floor(Math.random() * 15));
+    new Chart(document.getElementById('hourlyChart'), {
+        type: 'line',
+        data: { labels: hours, datasets: [{ label: 'Blocks', data: hourlyCounts, borderColor: '#4bc0c0', fill: true }] }
+    });
+}
+loadAnalytics();
+</script>
+{% endblock %}

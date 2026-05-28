@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+    <div class="card-header bg-success text-white">Add to Whitelist</div>
+    <div class="card-body">
+        <form method="post" action="{{ url_for('whitelist.add') }}">
+            <div class="mb-3">
+                <label class="form-label">URL</label>
+                <input type="url" name="url" class="form-control" placeholder="https://trusted-site.com" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Reason (optional)</label>
+                <input type="text" name="reason" class="form-control" placeholder="E.g., Internal tool, safe login">
+            </div>
+            <button type="submit" class="btn btn-success">Add to Whitelist</button>
+            <a href="{{ url_for('whitelist.list_whitelist') }}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

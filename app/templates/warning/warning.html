@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚠️ PhishGuard Security Warning</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/warning.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="warning-page">
+    <div class="warning-overlay">
+        <div class="warning-card">
+            <div class="danger-icon">
+                <i class="fas fa-skull-crossbow"></i>
+            </div>
+            <h1 class="warning-title">⚠️ DANGER ⚠️</h1>
+            <p class="warning-message">This website has been blocked by PhishGuard</p>
+            
+            <div class="details-box">
+                <strong>Reason:</strong> {{ reason }}<br>
+                <strong>Threat Category:</strong> {{ category }}<br>
+                <strong>URL:</strong>
+                <div class="url-display">{{ url }}</div>
+            </div>
+            
+            <div class="button-group">
+                <button type="button" id="backBtn" class="btn-secondary-warning">
+                    <i class="fas fa-arrow-left"></i> Go Back
+                </button>
+                
+                <form method="post" action="{{ url_for('warning.proceed') }}">
+                    <input type="hidden" name="url" value="{{ url }}">
+                    <input type="hidden" name="category" value="{{ category }}">
+                    <button type="submit" id="proceedBtn" class="btn-danger-warning">
+                        <i class="fas fa-exclamation-triangle"></i> Proceed Anyway 
+                        <span id="countdown">5</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/warning.js') }}"></script>
+</body>
+</html>

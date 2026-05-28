@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+    <div class="card-header bg-warning text-dark">Edit Blacklisted URL</div>
+    <div class="card-body">
+        <form method="post" action="{{ url_for('blacklist.edit', id=url.id) }}">
+            <div class="mb-3">
+                <label class="form-label">URL</label>
+                <input type="url" name="url" class="form-control" value="{{ url.url }}" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Category</label>
+                <select name="category" class="form-select">
+                    {% set categories = ['phishing','malware','scam','fake_banking','fake_login'] %}
+                    {% for cat in categories %}
+                        <option value="{{ cat }}" {% if url.category and url.category.name == cat %}selected{% endif %}>{{ cat }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Risk Score</label>
+                <input type="number" name="risk_score" class="form-control" value="{{ url.risk_score }}" min="0" max="100">
+            </div>
+            <button type="submit" class="btn btn-primary">Update</button>
+            <a href="{{ url_for('blacklist.list_blacklist') }}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

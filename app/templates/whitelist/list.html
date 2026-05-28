@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<h2><i class="fas fa-check-circle"></i> Whitelist Manager</h2>
+<div class="card mb-4">
+    <div class="card-header">Add Safe URL</div>
+    <div class="card-body">
+        <form action="/whitelist/add" method="post" class="row g-2">
+            <div class="col-md-8"><input type="url" name="url" class="form-control" placeholder="https://trusted-site.com" required></div>
+            <div class="col-md-3"><input type="text" name="reason" class="form-control" placeholder="Reason (optional)"></div>
+            <div class="col-md-1"><button class="btn btn-success w-100"><i class="fas fa-plus"></i></button></div>
+        </form>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header">Whitelisted Domains</div>
+    <div class="card-body">
+        <table class="table table-dark">
+            <thead><tr><th>URL</th><th>Reason</th><th>Added</th><th>Action</th></tr></thead>
+            <tbody>
+                {% for entry in urls %}
+                <tr><td>{{ entry.url }}</td><td>{{ entry.reason }}</td><td>{{ entry.added_at.strftime('%Y-%m-%d') }}</td><td><a href="/whitelist/delete/{{ entry.id }}" class="btn btn-sm btn-warning">Remove</a></td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
