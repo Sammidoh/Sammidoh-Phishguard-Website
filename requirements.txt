@@ -14,3 +14,4 @@ requests==2.31.0
 chardet==5.1.0
 tldextract==3.4.4
 Werkzeug==2.3.8
+openai>=1.0.0
